@@ -1,0 +1,30 @@
+.card,
+.hidden,
+.display {
+    width: 150px;
+    height: 150px;
+    background-color: rgb(255, 255, 255);
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgb(117, 117, 117);
+}
+
+.card img,
+.hidden img,
+.display img {
+    width: 50px;
+    height: 50px;
+}
+
+.hidden {
+    background-color: rgb(27, 69, 133);
+}
+
+.display {
+    border: 1px solid gray;
+}

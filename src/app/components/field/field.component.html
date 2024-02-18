@@ -1,0 +1,9 @@
+<div class="field">
+    @for (card of cards; track $index) {
+    <app-card [card]="card" (click)="flipCard($index)" ></app-card>
+    }
+</div>
+
+<div class="reset-btn-container">
+    <button class="reset-btn" (click)="reset()">Reset</button>
+</div>

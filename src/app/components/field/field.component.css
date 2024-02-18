@@ -1,0 +1,26 @@
+.field {
+    width: 500px;
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgb(117, 117, 117);
+}
+
+.reset-btn-container {
+    text-align: center;
+}
+
+.reset-btn {
+    width: 100px;
+    padding: 10px;
+    border: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(27, 69, 133);
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgb(117, 117, 117);
+}
