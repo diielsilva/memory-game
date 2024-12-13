@@ -17,22 +17,31 @@ export class MatchService {
     const availablePositions: number[] = this.getAvailablePositions(shuffled);
     const shouldFlipSelectedPositions: boolean = false;
 
-    return {
+    const match = {
       selectedPositions,
       availablePositions,
       shouldFlipSelectedPositions,
       cards: shuffled
     };
 
+    console.log(match);
+
+    return match;
   }
 
   private duplicate(cards: Card[]): Card[] {
-    return [...cards, ...cards];
+    const duplicates: Card[] = [...cards];
+
+    for (const card of cards) {
+      duplicates.push({value: card.value, visible: false});
+    }
+
+    return duplicates;
   }
 
   private shuffle(cards: Card[]): Card[] {
     for (let i: number = cards.length - 1; i > 0; i--) {
-      const random: number = Math.floor(Math.random() * (cards.length + 1));
+      const random: number = Math.floor(Math.random() * (i + 1));
       const card: Card = cards[random];
       cards[random] = cards[i];
       cards[i] = card;
@@ -59,6 +68,7 @@ export class MatchService {
 
 
   public play(position: number): void {
+    console.log(position);
     const canPlay: boolean =
       this.matchSignal().availablePositions.includes(position) &&
       !this.matchSignal().shouldFlipSelectedPositions &&
@@ -91,6 +101,8 @@ export class MatchService {
 
       }
     }
+
+    console.log(this.matchSignal());
 
   }
 
