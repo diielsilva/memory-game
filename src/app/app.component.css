@@ -1,0 +1,23 @@
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 200px;
+}
+
+.card {
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 0 5px #3f3f3f;
+  margin: 2px;
+  text-align: center;
+  align-content: center;
+}
+
+.display-card {
+  background-color: white;
+}
+
+.hidden-card {
+  background-color: blue;
+  color: transparent;
+}

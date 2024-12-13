@@ -1,0 +1,9 @@
+<div class="board">
+  @for (card of matchState().cards; track $index) {
+    <div class="card" [ngClass]="card.visible ? 'display-card' : 'hidden-card'"
+         (click)="play($index)"> {{ card.value }}
+    </div>
+  }
+</div>
+
+<button>Reset Match</button>
