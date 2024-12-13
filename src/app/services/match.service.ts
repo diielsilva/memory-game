@@ -51,4 +51,47 @@ export class MatchService {
     return availablePositions;
   }
 
+  private removeFromAvailablePositions(selected: number[]): number[] {
+    const availablePositions: number[] = this.matchSignal().availablePositions;
+
+    return availablePositions.filter((value: number) => value !== selected[0] && value !== selected[1]);
+  }
+
+
+  public play(position: number): void {
+    const canPlay: boolean =
+      this.matchSignal().availablePositions.includes(position) &&
+      !this.matchSignal().shouldFlipSelectedPositions &&
+      !this.matchSignal().selectedPositions.includes(position);
+
+    if (canPlay) {
+      this.matchSignal().cards[position].visible = true;
+      this.matchSignal().selectedPositions.push(position);
+
+      const canMakeAPair: boolean = this.matchSignal().selectedPositions.length === 2;
+
+      if (canMakeAPair) {
+        const isNotPair: boolean = this.matchSignal().cards[this.matchSignal().selectedPositions[0]].value
+          !== this.matchSignal().cards[this.matchSignal().selectedPositions[1]].value;
+
+
+        if (isNotPair) {
+          this.matchSignal().shouldFlipSelectedPositions = true;
+
+          setTimeout(() => {
+            this.matchSignal().cards[this.matchSignal().selectedPositions[0]].visible = false;
+            this.matchSignal().cards[this.matchSignal().selectedPositions[1]].visible = false;
+            this.matchSignal().shouldFlipSelectedPositions = false;
+            this.matchSignal().selectedPositions = [];
+          }, 700);
+        } else {
+          this.matchSignal().availablePositions = this.removeFromAvailablePositions(this.matchSignal().selectedPositions);
+          this.matchSignal().selectedPositions = [];
+        }
+
+      }
+    }
+
+  }
+
 }
