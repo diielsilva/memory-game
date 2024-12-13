@@ -11,7 +11,8 @@ export class MatchService {
   public matchState: Signal<Match> = computed(() => this.matchSignal());
 
   private start(): Match {
-    const duplicated: Card[] = this.duplicate(data);
+    const cards: Card[] = [...data];
+    const duplicated: Card[] = this.duplicate(cards);
     const shuffled: Card[] = this.shuffle(duplicated);
     const selectedPositions: number[] = [];
     const availablePositions: number[] = this.getAvailablePositions(shuffled);
@@ -104,6 +105,10 @@ export class MatchService {
 
     console.log(this.matchSignal());
 
+  }
+
+  public restart(): void {
+    this.matchSignal.set(this.start());
   }
 
 }

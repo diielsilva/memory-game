@@ -19,4 +19,8 @@ export class AppComponent {
     this.matchService.play(position);
   }
 
+  protected restart(): void {
+    this.matchService.restart();
+  }
+
 }
