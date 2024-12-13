@@ -11,7 +11,10 @@ export class MatchService {
   public matchState: Signal<Match> = computed(() => this.matchSignal());
 
   private start(): Match {
-    const cards: Card[] = [...data];
+    const cards: Card[] = [];
+    data.forEach(card => {
+      cards.push({value: card.value, visible: false});
+    });
     const duplicated: Card[] = this.duplicate(cards);
     const shuffled: Card[] = this.shuffle(duplicated);
     const selectedPositions: number[] = [];

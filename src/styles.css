@@ -1,9 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-color: #c35b98;
+  --secondary-color: #2b2f42;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100dvh;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+}
 
 .container {
-  width: 100dvw;
+  width: 95dvw;
   height: 100dvh;
   max-width: 800px;
-  max-height: 800px;
-  background-color: wheat;
+  max-height: 600px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
 }
