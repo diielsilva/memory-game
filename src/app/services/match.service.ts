@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {computed, Injectable, Signal, signal, WritableSignal} from '@angular/core';
 import {Match} from '../models/match';
 import {Card} from '../models/card';
 import {data} from '../data/data';
@@ -7,6 +7,8 @@ import {data} from '../data/data';
   providedIn: 'root'
 })
 export class MatchService {
+  private matchSignal: WritableSignal<Match> = signal<Match>(this.start());
+  public matchState: Signal<Match> = computed(() => this.matchSignal());
 
   private start(): Match {
     const duplicated: Card[] = this.duplicate(data);
