@@ -13,8 +13,8 @@ export class MatchService {
   private start(): Match {
     const duplicates: Card[] = this.duplicate(data);
     const shuffled: Card[] = this.shuffle(duplicates);
-    const selectedPositions: number[] = [];
     const availablePositions: number[] = this.getAvailablePositions(shuffled);
+    const selectedPositions: number[] = [];
     const shouldFlipSelectedPositions: boolean = false;
 
     return {
@@ -65,36 +65,37 @@ export class MatchService {
 
 
   public play(position: number): void {
+    const match: Match = this.matchSignal();
+
     const canPlay: boolean =
-      this.matchSignal().availablePositions.includes(position) &&
-      !this.matchSignal().shouldFlipSelectedPositions &&
-      !this.matchSignal().selectedPositions.includes(position);
+      match.availablePositions.includes(position) &&
+      !match.shouldFlipSelectedPositions &&
+      !match.selectedPositions.includes(position);
 
     if (canPlay) {
-      this.matchSignal().cards[position].visible = true;
-      this.matchSignal().selectedPositions.push(position);
+      match.cards[position].visible = true;
+      match.selectedPositions.push(position);
 
-      const canMakeAPair: boolean = this.matchSignal().selectedPositions.length === 2;
+      const canBePair: boolean = match.selectedPositions.length === 2;
 
-      if (canMakeAPair) {
-        const isNotPair: boolean = this.matchSignal().cards[this.matchSignal().selectedPositions[0]].value
-          !== this.matchSignal().cards[this.matchSignal().selectedPositions[1]].value;
-
+      if (canBePair) {
+        const isNotPair: boolean = match.cards[match.selectedPositions[0]].value
+          !== match.cards[match.selectedPositions[1]].value;
 
         if (isNotPair) {
-          this.matchSignal().shouldFlipSelectedPositions = true;
+          match.shouldFlipSelectedPositions = true;
 
           setTimeout(() => {
-            this.matchSignal().cards[this.matchSignal().selectedPositions[0]].visible = false;
-            this.matchSignal().cards[this.matchSignal().selectedPositions[1]].visible = false;
-            this.matchSignal().shouldFlipSelectedPositions = false;
-            this.matchSignal().selectedPositions = [];
+            match.cards[match.selectedPositions[0]].visible = false;
+            match.cards[match.selectedPositions[1]].visible = false;
+            match.shouldFlipSelectedPositions = false;
+            match.selectedPositions = [];
           }, 700);
-        } else {
-          this.matchSignal().availablePositions = this.removeFromAvailablePositions(this.matchSignal().selectedPositions);
-          this.matchSignal().selectedPositions = [];
-        }
 
+          return;
+        }
+        match.availablePositions = this.removeFromAvailablePositions(match.selectedPositions);
+        match.selectedPositions = [];
       }
     }
 
