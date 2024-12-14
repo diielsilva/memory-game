@@ -17,16 +17,12 @@ export class MatchService {
     const availablePositions: number[] = this.getAvailablePositions(shuffled);
     const shouldFlipSelectedPositions: boolean = false;
 
-    const match = {
+    return {
       selectedPositions,
       availablePositions,
       shouldFlipSelectedPositions,
       cards: shuffled
     };
-
-    console.log(match);
-
-    return match;
   }
 
   private duplicate(cards: Card[]): Card[] {
@@ -69,7 +65,6 @@ export class MatchService {
 
 
   public play(position: number): void {
-    console.log(position);
     const canPlay: boolean =
       this.matchSignal().availablePositions.includes(position) &&
       !this.matchSignal().shouldFlipSelectedPositions &&
@@ -102,8 +97,6 @@ export class MatchService {
 
       }
     }
-
-    console.log(this.matchSignal());
 
   }
 
