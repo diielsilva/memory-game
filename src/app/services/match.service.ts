@@ -11,12 +11,8 @@ export class MatchService {
   public matchState: Signal<Match> = computed(() => this.matchSignal());
 
   private start(): Match {
-    const cards: Card[] = [];
-    data.forEach(card => {
-      cards.push({value: card.value, visible: false});
-    });
-    const duplicated: Card[] = this.duplicate(cards);
-    const shuffled: Card[] = this.shuffle(duplicated);
+    const duplicates: Card[] = this.duplicate(data);
+    const shuffled: Card[] = this.shuffle(duplicates);
     const selectedPositions: number[] = [];
     const availablePositions: number[] = this.getAvailablePositions(shuffled);
     const shouldFlipSelectedPositions: boolean = false;
@@ -34,11 +30,12 @@ export class MatchService {
   }
 
   private duplicate(cards: Card[]): Card[] {
-    const duplicates: Card[] = [...cards];
+    const duplicates: Card[] = [];
 
-    for (const card of cards) {
-      duplicates.push({value: card.value, visible: false});
-    }
+    cards.forEach(card => {
+      duplicates.push({value: card.value, visible: card.visible});
+      duplicates.push({value: card.value, visible: card.visible});
+    });
 
     return duplicates;
   }
